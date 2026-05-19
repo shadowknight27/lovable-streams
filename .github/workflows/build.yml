@@ -26,7 +26,7 @@ jobs:
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "StreamFlix" "com.freehotstar.stream" --web-dir=dist
-          npx cap add android --skip-install || true
+          npx cap add android
           npx cap sync android
 
       - name: Set up JDK 17
