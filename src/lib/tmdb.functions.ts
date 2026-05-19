@@ -42,10 +42,9 @@ function mapItem(r: any, forceType?: "movie" | "tv"): TmdbItem {
 export const getHomeRows = createServerFn({ method: "GET" }).handler(async () => {
   const [bolly, marvel, action, hero] = await Promise.all([
     tmdb("/discover/movie", {
+      with_origin_country: "IN",
       with_original_language: "hi",
       sort_by: "popularity.desc",
-      region: "IN",
-      "primary_release_date.gte": "2022-01-01",
     }),
     tmdb("/discover/movie", {
       with_companies: "420,2", // Marvel Studios (420), Disney (2)
