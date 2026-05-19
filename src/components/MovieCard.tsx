@@ -8,7 +8,7 @@ export function MovieCard({ item }: { item: TmdbItem }) {
       to="/watch/$type/$id"
       params={{ type: item.mediaType, id: String(item.id) }}
       data-focusable
-      className="group relative block w-44 shrink-0 sm:w-52 md:w-56"
+      className="group relative block w-full"
     >
       <div
         className="relative aspect-[2/3] overflow-hidden rounded-xl bg-muted"

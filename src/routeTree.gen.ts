@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TvRouteImport } from './routes/tv'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as HindiDubsRouteImport } from './routes/hindi-dubs'
 import { Route as IndexRouteImport } from './routes/index'
@@ -18,6 +19,11 @@ import { Route as WatchTypeIdRouteImport } from './routes/watch.$type.$id'
 const TvRoute = TvRouteImport.update({
   id: '/tv',
   path: '/tv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoviesRoute = MoviesRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/hindi-dubs': typeof HindiDubsRoute
   '/movies': typeof MoviesRoute
+  '/search': typeof SearchRoute
   '/tv': typeof TvRoute
   '/watch/$type/$id': typeof WatchTypeIdRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/hindi-dubs': typeof HindiDubsRoute
   '/movies': typeof MoviesRoute
+  '/search': typeof SearchRoute
   '/tv': typeof TvRoute
   '/watch/$type/$id': typeof WatchTypeIdRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/hindi-dubs': typeof HindiDubsRoute
   '/movies': typeof MoviesRoute
+  '/search': typeof SearchRoute
   '/tv': typeof TvRoute
   '/watch/$type/$id': typeof WatchTypeIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hindi-dubs' | '/movies' | '/tv' | '/watch/$type/$id'
+  fullPaths:
+    | '/'
+    | '/hindi-dubs'
+    | '/movies'
+    | '/search'
+    | '/tv'
+    | '/watch/$type/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hindi-dubs' | '/movies' | '/tv' | '/watch/$type/$id'
-  id: '__root__' | '/' | '/hindi-dubs' | '/movies' | '/tv' | '/watch/$type/$id'
+  to: '/' | '/hindi-dubs' | '/movies' | '/search' | '/tv' | '/watch/$type/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/hindi-dubs'
+    | '/movies'
+    | '/search'
+    | '/tv'
+    | '/watch/$type/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HindiDubsRoute: typeof HindiDubsRoute
   MoviesRoute: typeof MoviesRoute
+  SearchRoute: typeof SearchRoute
   TvRoute: typeof TvRoute
   WatchTypeIdRoute: typeof WatchTypeIdRoute
 }
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/tv'
       fullPath: '/tv'
       preLoaderRoute: typeof TvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movies': {
@@ -123,6 +153,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HindiDubsRoute: HindiDubsRoute,
   MoviesRoute: MoviesRoute,
+  SearchRoute: SearchRoute,
   TvRoute: TvRoute,
   WatchTypeIdRoute: WatchTypeIdRoute,
 }

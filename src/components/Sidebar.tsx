@@ -1,8 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Film, Tv, Languages, Play } from "lucide-react";
+import { Home, Film, Tv, Languages, Play, Search } from "lucide-react";
 
 const items = [
   { to: "/", label: "Home", icon: Home },
+  { to: "/search", label: "Search", icon: Search },
   { to: "/movies", label: "Movies", icon: Film },
   { to: "/tv", label: "TV Shows", icon: Tv },
   { to: "/hindi-dubs", label: "Hindi Dubs", icon: Languages },
