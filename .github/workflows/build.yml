@@ -15,7 +15,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install Web Dependencies
         run: npm install
@@ -27,7 +26,7 @@ jobs:
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "StreamFlix" "com.freehotstar.stream" --web-dir=dist
-          npx cap add android
+          npx cap add android --skip-install || true
           npx cap sync android
 
       - name: Set up JDK 17
