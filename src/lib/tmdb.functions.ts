@@ -128,3 +128,44 @@ export const getDetails = createServerFn({ method: "GET" })
       tagline: r.tagline || "",
     };
   });
+
+// TMDB genre IDs for movies
+export const GENRES = {
+  action: 28,
+  romance: 10749,
+  comedy: 35,
+  scifi: 878,
+  thriller: 53,
+  horror: 27,
+  animation: 16,
+  drama: 18,
+} as const;
+
+export const getByGenre = createServerFn({ method: "GET" })
+  .inputValidator((d: { genreId: number }) =>
+    z.object({ genreId: z.number().int().min(1).max(99999) }).parse(d),
+  )
+  .handler(async ({ data }) => {
+    const res = await tmdb("/discover/movie", {
+      with_genres: data.genreId,
+      sort_by: "popularity.desc",
+      "vote_count.gte": 100,
+    });
+    return { items: (res.results || []).map((r: any) => mapItem(r, "movie")) };
+  });
+
+export const searchTmdb = createServerFn({ method: "GET" })
+  .inputValidator((d: { query: string }) =>
+    z.object({ query: z.string().trim().min(1).max(100) }).parse(d),
+  )
+  .handler(async ({ data }) => {
+    const res = await tmdb("/search/multi", {
+      query: data.query,
+      include_adult: "false",
+    });
+    const items: TmdbItem[] = (res.results || [])
+      .filter((r: any) => r.media_type === "movie" || r.media_type === "tv")
+      .filter((r: any) => r.poster_path)
+      .map((r: any) => mapItem(r));
+    return { items };
+  });
