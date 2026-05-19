@@ -22,8 +22,8 @@ function Watch() {
 
   const embedUrl =
     mediaType === "movie"
-      ? `https://vidsrc.to/embed/movie/${numId}`
-      : `https://vidsrc.to/embed/tv/${numId}`;
+      ? `https://vidsrc.cc/v2/embed/movie/${numId}`
+      : `https://vidsrc.cc/v2/embed/tv/${numId}`;
 
   if (isLoading || !data) {
     return (
