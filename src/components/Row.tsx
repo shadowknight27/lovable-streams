@@ -36,7 +36,9 @@ export function Row({ title, items }: { title: string; items: TmdbItem[] }) {
 
       <div ref={ref} className="row-scroll flex gap-4 overflow-x-auto px-8 pb-4 pt-2">
         {items.map((it) => (
-          <MovieCard key={`${it.mediaType}-${it.id}`} item={it} />
+          <div key={`${it.mediaType}-${it.id}`} className="w-44 shrink-0 sm:w-52 md:w-56">
+            <MovieCard item={it} />
+          </div>
         ))}
       </div>
     </section>
