@@ -8,8 +8,10 @@ import {
   Link,
 } from "@tanstack/react-router";
 
+import { useEffect } from "react";
 import appCss from "../styles.css?url";
 import { Sidebar } from "@/components/Sidebar";
+import { useSpatialNav, consumeRememberedFocus } from "@/hooks/useSpatialNav";
 
 function NotFoundComponent() {
   return (
@@ -72,6 +74,23 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useSpatialNav();
+  useEffect(() => {
+    // Restore focus to the previously-clicked card when returning from player
+    const id = consumeRememberedFocus();
+    if (!id) return;
+    let tries = 0;
+    const tick = () => {
+      const el = document.querySelector<HTMLElement>(`[data-focus-id="${id}"]`);
+      if (el) {
+        el.focus({ preventScroll: true });
+        el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        return;
+      }
+      if (tries++ < 20) setTimeout(tick, 150);
+    };
+    tick();
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background">
