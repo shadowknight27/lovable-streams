@@ -34,34 +34,34 @@
 
 :root {
   --radius: 0.75rem;
-  /* Dark blue base */
-  --background: oklch(0.16 0.05 265);
-  --foreground: oklch(0.98 0.01 250);
-  --card: oklch(0.21 0.06 265);
-  --card-foreground: oklch(0.98 0.01 250);
-  --popover: oklch(0.21 0.06 265);
-  --popover-foreground: oklch(0.98 0.01 250);
-  /* Orange accent */
-  --primary: oklch(0.72 0.19 50);
-  --primary-foreground: oklch(0.15 0.02 265);
-  --secondary: oklch(0.28 0.07 265);
-  --secondary-foreground: oklch(0.98 0.01 250);
-  --muted: oklch(0.25 0.05 265);
-  --muted-foreground: oklch(0.72 0.03 260);
-  --accent: oklch(0.72 0.19 50);
-  --accent-foreground: oklch(0.15 0.02 265);
-  --destructive: oklch(0.6 0.24 27);
-  --destructive-foreground: oklch(0.98 0.01 250);
-  --border: oklch(0.3 0.06 265);
-  --input: oklch(0.3 0.06 265);
-  --ring: oklch(0.78 0.2 55);
-  --sidebar-bg: oklch(0.12 0.04 265);
+  /* Midnight navy base — JioHotstar inspired */
+  --background: #060B26;
+  --foreground: #F4F4F5;
+  --card: #0E1538;
+  --card-foreground: #F4F4F5;
+  --popover: #0E1538;
+  --popover-foreground: #F4F4F5;
+  /* Brand blue accent */
+  --primary: #0A84FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #122050;
+  --secondary-foreground: #F4F4F5;
+  --muted: #111A3F;
+  --muted-foreground: #9A9A9A;
+  --accent: #0A84FF;
+  --accent-foreground: #FFFFFF;
+  --destructive: #ef4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #1B2756;
+  --input: #1B2756;
+  --ring: #0A84FF;
+  --sidebar-bg: #04081C;
 
-  --gradient-hero: linear-gradient(180deg, transparent 0%, oklch(0.16 0.05 265 / 0.4) 50%, oklch(0.16 0.05 265) 100%);
-  --gradient-hero-left: linear-gradient(90deg, oklch(0.16 0.05 265) 0%, oklch(0.16 0.05 265 / 0.7) 40%, transparent 80%);
-  --gradient-brand: linear-gradient(135deg, oklch(0.78 0.2 55), oklch(0.65 0.22 35));
-  --shadow-focus: 0 0 0 4px oklch(0.78 0.2 55 / 0.5), 0 12px 32px -8px oklch(0.78 0.2 55 / 0.5);
-  --shadow-card: 0 10px 30px -10px oklch(0 0 0 / 0.6);
+  --gradient-hero: linear-gradient(180deg, transparent 0%, rgba(6,11,38,0.55) 50%, #060B26 100%);
+  --gradient-hero-left: linear-gradient(90deg, #060B26 0%, rgba(6,11,38,0.7) 40%, transparent 80%);
+  --gradient-brand: linear-gradient(135deg, #0A84FF 0%, #2BB1FF 100%);
+  --shadow-focus: 0 0 0 3px #0A84FF, 0 0 32px 4px rgba(10,132,255,0.65), 0 18px 40px -10px rgba(10,132,255,0.55);
+  --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.7);
 }
 
 @layer base {
@@ -74,19 +74,18 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* TV / D-pad focus styles — applied globally so keyboard nav is obvious */
+  /* TV / D-pad focus — apply on :focus (not only :focus-visible) so remote keys show ring */
   :focus { outline: none; }
-  :focus-visible {
-    outline: none;
-  }
-  [data-focusable]:focus-visible,
-  a:focus-visible,
-  button:focus-visible {
+  :focus-visible { outline: none; }
+
+  [data-focusable]:focus,
+  [data-focusable]:focus-visible {
     box-shadow: var(--shadow-focus);
-    transform: scale(1.06);
+    transform: scale(1.05);
     z-index: 5;
     transition: transform 180ms ease, box-shadow 180ms ease;
     border-radius: var(--radius);
+    position: relative;
   }
 
   /* Smooth horizontal scroll, hide scrollbar */
