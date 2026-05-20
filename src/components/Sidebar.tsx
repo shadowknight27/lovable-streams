@@ -14,7 +14,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className="group fixed left-0 top-0 z-40 flex h-screen w-20 flex-col items-center border-r border-border bg-[var(--sidebar-bg)] py-6 transition-[width] duration-300 hover:w-56"
+      className="group fixed left-0 top-0 z-40 flex h-screen w-20 flex-col items-center border-r border-border bg-[var(--sidebar-bg)] py-6 transition-[width] duration-300 hover:w-56 focus-within:w-56"
     >
       <Link
         to="/"
@@ -40,7 +40,7 @@ export function Sidebar() {
               }`}
             >
               <Icon className="h-6 w-6 shrink-0" />
-              <span className="opacity-0 transition-opacity duration-200 group-hover:opacity-100 whitespace-nowrap">
+              <span className="opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 whitespace-nowrap">
                 {label}
               </span>
             </Link>
