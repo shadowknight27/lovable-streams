@@ -3,6 +3,7 @@ import {
   Outlet,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   Link,
@@ -75,8 +76,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useSpatialNav();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   useEffect(() => {
-    // Restore focus to the previously-clicked card when returning from player
+    // On any route change (e.g., returning from /watch), restore focus to last card.
     const id = consumeRememberedFocus();
     if (!id) return;
     let tries = 0;
@@ -87,10 +89,10 @@ function RootComponent() {
         el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
         return;
       }
-      if (tries++ < 20) setTimeout(tick, 150);
+      if (tries++ < 25) setTimeout(tick, 150);
     };
     tick();
-  }, []);
+  }, [pathname]);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background">
